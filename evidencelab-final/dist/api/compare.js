@@ -1,2 +1,0 @@
-const { buildPeriodComparison } = require('../lib/engine');
-module.exports = function handler(req, res) { res.setHeader('Content-Type','application/json; charset=utf-8'); res.setHeader('Cache-Control','no-store'); if(req.method!=='GET'&&req.method!=='POST'){res.statusCode=405;return res.end(JSON.stringify({error:'METHOD_NOT_ALLOWED'}));} try{res.statusCode=200;res.end(JSON.stringify(buildPeriodComparison()));}catch(_){res.statusCode=503;res.end(JSON.stringify({error:'UPSTREAM_UNAVAILABLE',message:'跨期数据暂不可用。'}));} };
