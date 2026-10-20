@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#102744" />
+  <meta name="description" content="证研 EvidenceLab：AI 投资命题验证与证据追踪工作台" />
+  <title>证研 EvidenceLab｜投资命题验证</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span>证</span><i></i></div>
+        <div><div class="brand-name">证研 <span>EvidenceLab</span></div><div class="brand-sub">INVESTMENT RESEARCH OS</div></div>
+      </div>
+      <div class="workspace-label">工作空间</div>
+      <nav class="side-nav" aria-label="主导航">
+        <button class="nav-item active" data-nav="workspace"><span class="nav-icon">◫</span><span>研究工作台</span><span class="nav-count">01</span></button>
+        <button class="nav-item" data-nav="tasks"><span class="nav-icon">▤</span><span>研究任务</span><span class="nav-count" id="task-count">0</span></button>
+        <button class="nav-item" data-nav="evidence"><span class="nav-icon">⌕</span><span>证据库</span></button>
+        <button class="nav-item" data-nav="sources"><span class="nav-icon">◈</span><span>数据源</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="source-status-card">
+          <div class="status-card-head"><span class="status-dot amber"></span><span>数据连接状态</span></div>
+          <div class="status-main">演示快照模式</div>
+          <p>公开定期报告已载入<br />扶摇 / iFinD MCP 未连接</p>
+          <button class="text-button" data-action="refresh-data">刷新来源状态 <span>↻</span></button>
+          <button class="text-button" data-action="sources">查看数据边界 <span>↗</span></button>
+        </div>
+        <div class="user-row"><div class="avatar">PM</div><div class="user-info"><strong>研究员工作区</strong><span>产品演示账户</span></div><span class="more">···</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>研究工作台</span><b>/</b><strong>命题验证</strong></div>
+        <div class="topbar-right"><span class="snapshot-pill"><span class="status-dot amber"></span>非实时数据快照</span><span class="topbar-date">数据截点 2026.10.19</span><button class="outline-button small" id="auth-button" data-action="cloud-help">本地模式</button><button class="icon-button" title="帮助" data-action="help">?</button></div>
+      </header>
+
+      <section class="page-intro">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span>THESIS VERIFICATION</div>
+          <h1>投资命题验证</h1>
+          <p class="intro-subtitle">把投资观点变成可验证的问题，让每一个结论都有出处。</p>
+        </div>
+        <div class="header-actions"><button class="outline-button" data-action="new-task"><span>＋</span> 新建任务</button><button class="outline-button" data-action="export"><span>↓</span> 导出 Markdown</button><button class="outline-button" data-action="export-json">JSON</button></div>
+      </section>
+
+      <section class="claim-panel panel">
+        <div class="panel-topline"><div><span class="step-tag">STEP 01</span><strong>输入待验证的投资命题</strong></div><span class="hint-text">支持明确的公司、期间与可验证指标</span></div>
+        <form id="claim-form">
+          <label class="sr-only" for="claim-input">投资命题</label>
+          <div class="claim-input-row"><span class="claim-symbol">✳</span><input id="claim-input" name="claim" value="宁德时代2025年盈利改善主要来自主营业务，而非非经常性损益。" autocomplete="off" /><button class="primary-button" type="submit" id="verify-button"><span>⌕</span> 验证命题 <span class="button-arrow">→</span></button></div>
+          <div class="claim-bottom"><div class="scope-pills"><span class="scope-label">研究对象</span><span class="scope-chip" id="scope-company"><b>300750</b> 宁德时代</span><span class="scope-chip" id="scope-period">2025年度 vs 2024年度</span><span class="scope-chip muted-chip" id="scope-relation">财务归因</span></div><div class="claim-actions"><button class="text-button" type="button" data-action="revise">修订命题 <span>↗</span></button><button class="text-button" type="button" data-action="examples">试试其他命题 <span>⌄</span></button></div></div>
+        </form>
+        <div id="clarification-box" class="clarification-box hidden"></div>
+        <div class="example-menu hidden" id="example-menu"><button data-example="宁德时代2025年盈利改善主要来自主营业务，而非非经常性损益。">盈利改善来自主营业务？</button><button data-example="宁德时代2025年经营现金流与利润增长是否匹配？">经营现金流是否匹配利润？</button><button data-example="某公司估值回落但基本面未恶化。">估值回落但基本面未恶化？</button></div>
+      </section>
+
+      <section class="analysis-meta-row">
+        <div class="meta-left"><span class="live-indicator"></span><span id="analysis-status">命题已拆解 · 证据链已生成</span><span class="meta-separator">/</span><span class="meta-subtle" id="data-mode-pill">非实时公开报告快照</span><span class="mode-pill" id="ai-mode-pill">规则模式 · DeepSeek 未配置</span><span class="mode-pill storage-mode" id="storage-mode">任务：当前浏览器</span></div>
+        <div class="meta-right"><span class="trace-icon">⌁</span><span>分析编号 <b id="analysis-id">EV-20261019-01</b></span><button class="tiny-icon-button" title="复制分析编号" data-action="copy-id">▣</button></div>
+      </section>
+
+      <section class="metric-grid" id="metric-grid" aria-label="关键财务指标">
+        <article class="metric-card"><div class="metric-label">归母净利润同比 <span class="metric-icon blue">↗</span></div><div class="metric-value">+42.28<span>%</span></div><div class="metric-foot"><span class="positive">↑ 增量约 214.57 亿元</span><span>2025 vs 2024</span></div><div class="metric-spark spark-blue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="metric-card"><div class="metric-label">扣非净利润同比 <span class="metric-icon green">✓</span></div><div class="metric-value">+43.37<span>%</span></div><div class="metric-foot"><span class="positive">↑ 剔除非经常性损益</span><span>盈利质量</span></div><div class="metric-spark spark-green"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="metric-card"><div class="metric-label">主营收入同比 <span class="metric-icon blue">↗</span></div><div class="metric-value">+18.07<span>%</span></div><div class="metric-foot"><span class="positive">↑ 主营收入 4,067.85 亿元</span><span>业务规模</span></div><div class="metric-spark spark-blue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="metric-card"><div class="metric-label">经营现金流同比 <span class="metric-icon amber">⌁</span></div><div class="metric-value">+37.35<span>%</span></div><div class="metric-foot"><span class="positive">↑ 现金流同步增长</span><span>现金质量</span></div><div class="metric-spark spark-amber"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+      </section>
+
+      <div class="content-grid">
+        <div class="left-column">
+          <section class="panel verdict-panel">
+            <div class="section-heading"><div><span class="step-tag">STEP 02</span><h2>当前结论</h2></div><button class="more-button" data-action="verdict-detail">结论依据 <span>↗</span></button></div>
+            <div class="verdict-content">
+              <div class="verdict-mark"><span class="verdict-check" id="verdict-symbol">✓</span><div class="verdict-orbit"></div></div>
+              <div class="verdict-text"><div class="verdict-label"><span class="verdict-dot"></span><span id="verdict-kicker">总体支持 · 保留归因边界</span><span class="strength-chip" id="strength-label">证据较强</span></div><h3 id="verdict-title">主营业务改善得到支持，<br />但不能将全部利润增长归因于主营业务。</h3><p id="verdict-summary">主营收入与主营毛利增长，扣非净利润增速略高于归母净利润增速；但投资收益明显增长，仍需利润桥接数据进一步验证。</p></div>
+            </div>
+            <div class="verdict-bottom"><div class="evidence-score"><div class="score-ring"><svg viewBox="0 0 42 42" aria-hidden="true"><circle class="score-track" cx="21" cy="21" r="16"></circle><circle class="score-progress" cx="21" cy="21" r="16"></circle></svg><strong id="score-value">82</strong></div><div><b>证据充分度</b><span>规则评分，不代表收益概率</span></div></div><div class="verdict-actions"><button class="outline-button small" data-action="compare"><span>⇄</span> 继续比较</button><button class="outline-button small" data-action="save"><span>＋</span> 保存为研究任务</button></div></div>
+          </section>
+
+          <section class="panel decomposition-panel">
+            <div class="section-heading"><div><span class="step-tag">STEP 03</span><h2>命题拆解与验证进度</h2></div><span class="small-counter"><b id="verified-count">3</b> / 4 项已验证</span></div>
+            <div id="semantic-plan" class="semantic-plan hidden"></div>
+            <div id="subquestion-list" class="subquestion-list">
+              <div class="subquestion"><span class="subq-index">01</span><div class="subq-body"><strong>主营业务收入与毛利是否改善？</strong><span>收入增速、主营毛利额、毛利率变化</span></div><span class="status-pill status-support">支持</span><button class="tiny-icon-button" data-action="show-support">↗</button></div>
+              <div class="subquestion"><span class="subq-index">02</span><div class="subq-body"><strong>剔除非经常性损益后，利润增长是否成立？</strong><span>归母净利润 vs 扣非归母净利润</span></div><span class="status-pill status-support">支持</span><button class="tiny-icon-button" data-action="show-support">↗</button></div>
+              <div class="subquestion"><span class="subq-index">03</span><div class="subq-body"><strong>投资收益是否可能解释部分利润增量？</strong><span>投资收益增速、非经常性损益变化</span></div><span class="status-pill status-oppose">存在反向证据</span><button class="tiny-icon-button" data-action="show-oppose">↗</button></div>
+              <div class="subquestion"><span class="subq-index">04</span><div class="subq-body"><strong>能否将利润增量拆分为销量、价格与成本贡献？</strong><span>产品级销量、售价、单位成本和产品组合</span></div><span class="status-pill status-unknown">无法验证</span><button class="tiny-icon-button" data-action="show-unknown">↗</button></div>
+            </div>
+            <div class="decomposition-footer"><span><span class="status-dot green"></span>支持证据 <b id="support-footer-count">4</b> 条</span><span><span class="status-dot red"></span>反向证据 <b id="oppose-footer-count">2</b> 条</span><span><span class="status-dot gray"></span>待补证据 <b id="unknown-footer-count">2</b> 条</span><button class="text-button" data-action="edit-subquestions">编辑验证计划 ↗</button></div>
+          </section>
+
+          <section class="panel evidence-panel" id="evidence-panel">
+            <div class="section-heading"><div><span class="step-tag">STEP 04</span><h2>证据链</h2><p class="section-caption">每条证据均标记来源、披露时间、推理用途与可追溯原文。</p></div><div class="header-actions"><button class="more-button" data-action="conflicts">冲突记录 <span>↗</span></button><button class="more-button" data-action="sources">全部来源 <span>↗</span></button></div></div>
+            <div class="evidence-tabs" role="tablist"><button class="evidence-tab active" data-tab="support"><span class="tab-dot support-dot"></span>支持 <b id="support-count">4</b></button><button class="evidence-tab" data-tab="oppose"><span class="tab-dot oppose-dot"></span>反对 <b id="oppose-count">2</b></button><button class="evidence-tab" data-tab="unknown"><span class="tab-dot unknown-dot"></span>无法验证 <b id="unknown-count">2</b></button></div>
+            <div class="evidence-filters" id="evidence-filters"><label>类型 <select id="filter-type"><option value="">全部</option></select></label><label>来源 <select id="filter-source"><option value="">全部</option></select></label><button class="text-button" data-action="clear-filters">清除筛选</button></div>
+            <div id="evidence-list" class="evidence-list"></div>
+            <div class="evidence-endnote"><span class="shield-icon">◇</span><span>证据排序综合考虑来源权威性、时间匹配度、指标直接性与证据独立性；不以材料数量简单投票。</span></div>
+          </section>
+        </div>
+
+        <aside class="right-column">
+          <section class="panel source-panel">
+            <div class="section-heading"><div><span class="step-tag">TRACE</span><h2>来源追溯</h2></div><span class="source-count">2 个来源</span></div><div id="source-scope-note" class="source-scope-note hidden"></div>
+            <div class="source-primary"><div class="source-file-icon pdf-icon">PDF</div><div class="source-copy"><strong>宁德时代 2025 年年度报告</strong><span>巨潮资讯网 · 2026.03.10</span><div class="source-tags"><span>原始材料</span><span>财务披露</span></div></div><button class="source-open" data-source="annual-report" title="打开原文">↗</button></div>
+            <div class="source-secondary"><div class="source-file-icon doc-icon">PDF</div><div class="source-copy"><strong>2026 年半年度报告全文</strong><span>巨潮资讯网 · 2026.07.25</span><div class="source-tags"><span>期间比较</span><span>原始材料</span></div></div><button class="source-open" data-source="half-year-report" title="打开原文">↗</button></div>
+            <div class="source-panel-footer"><span class="status-dot green"></span>来源链接已配置 <span class="divider-v"></span><button class="text-button" data-action="sources">管理来源</button></div>
+          </section>
+
+          <section class="panel change-panel">
+            <div class="section-heading"><div><span class="step-tag">STEP 05</span><h2>什么变化会改变结论？</h2></div><span class="pulse-icon">⌁</span></div>
+            <p class="section-caption">以下为可配置的研究监测阈值，不是公司指引或价格预测。</p>
+            <div class="change-list" id="change-list">
+              <div class="change-item"><span class="change-symbol red-symbol">↘</span><div><strong>主营经营指标反转</strong><p>连续两个报告期主营收入转负，或主营毛利率下降超过 1.5 个百分点。</p></div></div>
+              <div class="change-item"><span class="change-symbol amber-symbol">!</span><div><strong>投资收益贡献持续抬升</strong><p>投资收益或非经常性损益增量占利润增量持续超过 30%。</p></div></div>
+              <div class="change-item"><span class="change-symbol amber-symbol">⌁</span><div><strong>现金流与利润背离</strong><p>经营现金流连续两个报告期显著弱于净利润，需追加营运资本核验。</p></div></div>
+            </div>
+            <button class="full-width-button" data-action="conditions">查看并编辑全部条件 <span>→</span></button>
+          </section>
+
+          <section class="panel followup-panel">
+            <div class="section-heading"><div><span class="step-tag">ASK</span><h2>继续追问</h2></div><span class="ai-orb">✳</span></div>
+            <p class="section-caption">基于当前证据继续比较、质疑或追踪，不重新编造数据。</p>
+            <div class="suggested-questions"><button data-question="如果投资收益占比继续上升，会改变结论吗？">如果投资收益继续上升，会改变结论吗？ <span>→</span></button><button data-question="为什么2026年上半年现金流没有跟上利润增长？">为什么现金流没有跟上利润增长？ <span>→</span></button></div>
+            <form id="followup-form" class="followup-form"><label for="followup-input" class="sr-only">输入追问</label><input id="followup-input" placeholder="追问当前结论……" /><button type="submit" aria-label="发送追问">↑</button></form>
+            <div id="followup-answer" class="followup-answer hidden" aria-live="polite"></div>
+          </section>
+        </aside>
+      </div>
+
+      <footer class="app-footer"><div><span class="footer-brand">证研 EvidenceLab</span><span>命题先拆解，证据再说话。</span></div><div><span>可运行 MVP v1.0</span><span class="footer-divider">·</span><button class="text-button" data-action="simulate-error">异常演练</button><span class="footer-divider">·</span><button class="text-button" data-action="disclaimer">数据与合规边界</button></div></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop hidden" id="modal-backdrop"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-header"><div><span class="step-tag" id="modal-kicker">DETAIL</span><h2 id="modal-title">研究详情</h2></div><button class="modal-close" data-action="close-modal" aria-label="关闭">×</button></div><div class="modal-body" id="modal-body"></div><div class="modal-footer"><button class="outline-button small" data-action="close-modal">关闭</button></div></section></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
